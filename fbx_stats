@@ -42,11 +42,13 @@ source ${CONF}
 if [ "z$APP_ID" == "z" ]; then
   if [ $# -eq 0 ]; then
     echo "You need to call \"$0 login\"  to initiate authentication."
+    exit 4
   else
     if [ $1 == "login" ]; then
       continue
     else
       echo "You need to call \"$0 login\"  to initiate authentication."
+      exit 8
 fi; fi; fi
 
 ### Calls
