@@ -34,6 +34,9 @@ if [ "z$APP_ID" == "z" ]; then
     if [ $1 == "login" ]; then
       # We don't exit if we call login
       echo "" >/dev/null
+    elif [ $1 == "auth" ]; then
+      # We don't exit if we call auth
+      echo "" >/dev/null
     else
       echo "You need to call \"$0 auth\"  to initiate App Authorization."
       exit 8
