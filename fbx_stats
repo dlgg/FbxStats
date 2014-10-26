@@ -13,24 +13,13 @@ API="${DIR}/lib/freeboxos-bash-api/freeboxos_bash_api.sh"
 [ ! -x ${C} ] && { echo "Curl is not installed."; exit 1; }
 [ -e ${API} ] && source ${API} || { echo "API is not present."; exit 2; }
 
-case $(uname) in
-  Darwin)
-    OS="Mac OSX";;
-  Linux)
-    OS="Linux";;
-  FreeBSD)
-    OS="FreeBSD";;
-  *)
-    OS="Unknown";;
-esac
-
 # Conf management
 _reset_conf() {
   echo >${CONF} <<__END__
 APP_NAME="Freebox.SNMP.app"
 APP_FULL_NAME="Freebox OS SNMP Bash interface"
 APP_VERSION=${VERSION}
-APP_OS=${OS}
+APP_OS=$(HOSTNAME)
 APP_ID=
 APP_TOKEN=
 __END__
