@@ -49,6 +49,9 @@ case $1 in
   version)
     echo ${_API_VERSION}
     ;;
+  auth)
+    authorize_application ${APP_NAME} "${APP_FULL_NAME}" ${APP_VERSION} ${APP_OS}
+    echo "Call \"$0 login MY_APP_ID MY_APP_TOKEN\" to first log application in the FreeBOX.";;
   *)
     echo "Not implemented."
     ;;
