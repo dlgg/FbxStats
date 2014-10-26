@@ -88,6 +88,8 @@ case $1 in
   chk_login)
     answer=$(call_freebox_api /login/)
     [ $(get_json_value_for_key "${answer}" "result.logged_in") == "true" ] && echo "We are logged in." || echo "We are not logged in.";;
+  logout)
+    call_freebox_api "/login/logout";;
   reboot)
     call_freebox_api "/system/reboot";;
   *)
