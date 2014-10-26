@@ -22,10 +22,12 @@ API="${DIR}/lib/freeboxos-bash-api/freeboxos_bash_api.sh"
 _reset_conf() {
   echo "APP_NAME=\"fr.freebox.hebeo.snmp\"
 APP_FULL_NAME=\"Freebox OS SNMP Bash interface\"
-APP_VERSION="${VERSION}"
-APP_OS=$(HOSTNAME)
+APP_VERSION=\"${VERSION}\"
+APP_OS=\"$(HOSTNAME)\"
 APP_ID=\"fr.freebox.hebeo.snmp\"
-APP_TOKEN=" >${CONF}
+APP_TOKEN=\"\"
+SESSION_TOKEN=\"\"
+" >${CONF}
 }
 _save_conf() {
   echo "APP_NAME=\"fr.freebox.hebeo.snmp\"
@@ -33,7 +35,9 @@ APP_FULL_NAME=\"Freebox OS SNMP Bash interface\"
 APP_VERSION=\"${VERSION}\"
 APP_OS=\"$(HOSTNAME)\"
 APP_ID=\"fr.freebox.hebeo.snmp\"
-APP_TOKEN=\"${APP_TOKEN}\"" >${CONF}
+APP_TOKEN=\"${APP_TOKEN}\"
+SESSION_TOKEN=\"${SESSION_TOKEN}\"
+" >${CONF}
 }
 
 [ ! -e ${CONF} ] && { touch ${CONF}; _reset_conf; }
@@ -67,12 +71,18 @@ case $1 in
     echo "Call \"$0 login MY_APP_TOKEN\" to first log application in the FreeBOX.";;
   login)
     APP_TOKEN=$2
-    _save_conf
     answer=$(call_freebox_api /login/)
     challenge=$(get_json_value_for_key "${answer}" "result.challenge")
     salt=$(get_json_value_for_key "${answer}" "result.password_salt")
     password=$(echo -n "$challenge" | openssl dgst -sha1 -hmac "$APP_TOKEN" | sed  's/^(stdin)= //')
     echo "$challenge / $APP_TOKEN / $password"
+    echo "-----------------------------------"
+    DATA="{\"app_id\": \"${APP_ID}\",\"password\": \"${password}\"}"
+    answer=$(call_freebox_api /login/session/ "${DATA}")
+    SESSION_TOKEN=$(get_json_value_for_key "${answer}" "result.session_token")
+    _save_conf
+    echo "-----------------------------------"
+    dump_json_keys_values "${answer}"
     ;;
 
   chk_login)
