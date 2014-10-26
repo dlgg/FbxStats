@@ -63,7 +63,7 @@ fi; fi; fi
 
 FbxAuth() {
   authorize_application ${APP_NAME} "${APP_FULL_NAME}" ${APP_VERSION} ${APP_OS}
-  echo "Call \"$0 login MY_APP_TOKEN\" to first log application in the FreeBOX."
+  [ $? -eq 0 ] && echo "Call \"$0 login MY_APP_TOKEN\" to first log application in the FreeBOX." || echo "Fail to auth. Please retry."
 }
 
 FbxLogin() {
