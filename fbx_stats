@@ -18,7 +18,6 @@ fbx_version() {
 
 case $1 in
   version)
-    echo "Requesting Freebox API version."
     fbx_version
     ;;
   *)
