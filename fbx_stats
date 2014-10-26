@@ -78,6 +78,10 @@ FbxLogin() {
   $0 chk_login
 }
 
+FbxChkLogin() {
+  [ $(get_json_value_for_key "$(call_freebox_api /login/)" "result.logged_in") == "true" ] && echo "We are logged in." || echo "We are not logged in."
+}
+
 ### Main Loop
 case $1 in
   version)
@@ -88,8 +92,7 @@ case $1 in
   login)
     FbxLogin $2;;
   chk_login)
-    answer=$(call_freebox_api /login/)
-    [ $(get_json_value_for_key "${answer}" "result.logged_in") == "true" ] && echo "We are logged in." || echo "We are not logged in.";;
+    FbxChkLogin;;
   logout)
     call_freebox_api "/login/logout";;
   reboot)
