@@ -2,6 +2,7 @@
 
 HOST="mafreebox.freebox.fr"
 VERSION="0.1"
+CONF="${HOME}/.freeboxsnmp"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 UA="Fbx SNMP Stats v${VERSION}"
@@ -23,9 +24,30 @@ case $(uname) in
     OS="Unknown";;
 esac
 
-
+# Conf management
+_reset_conf() {
+  echo >${CONF} <<__END__
+APP_NAME="Freebox.SNMP.app"
+APP_FULL_NAME="Freebox OS SNMP Bash interface"
+APP_VERSION=${VERSION}
+APP_OS=${OS}
+APP_ID=
+APP_TOKEN=
 __END__
 }
+
+[ ! -e ${CONF} ] && { touch ${CONF}; _reset_conf; }
+source ${CONF}
+
+if [ "z$APP_ID" == "z" ]; then
+  if [ $# -eq 0 ]; then
+    echo "You need to call \"$0 login\"  to initiate authentication."
+  else
+    if [ $1 == "login" ]; then
+      continue
+    else
+      echo "You need to call \"$0 login\"  to initiate authentication."
+fi; fi; fi
 
 case $1 in
   version)
