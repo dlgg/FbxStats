@@ -49,6 +49,9 @@ if [ "z$APP_ID" == "z" ]; then
       echo "You need to call \"$0 login\"  to initiate authentication."
 fi; fi; fi
 
+### Calls
+
+### Main Loop
 case $1 in
   version)
     echo ${_API_VERSION}
