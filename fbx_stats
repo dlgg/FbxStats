@@ -1,0 +1,27 @@
+#!/bin/bash
+
+HOST="mafreebox.freebox.fr"
+VERSION="0.1"
+
+UA="Fbx SNMP Stats v${VERSION}"
+C=$(which curl)
+CURL="${CURL} -s -4 -A ${UA}"
+
+if [ ! -x ${C} ]; then
+  echo "Curl is not installed."
+  exit 1
+fi
+
+fbx_version() {
+  ${CURL} http://${HOST}/api_version
+}
+
+case $1 in
+  version)
+    echo "Requesting Freebox API version."
+    fbx_version
+    ;;
+  *)
+    echo "Not implemented."
+    ;;
+esac
