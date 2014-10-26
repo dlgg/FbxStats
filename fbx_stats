@@ -9,6 +9,9 @@ C=$(which curl)
 CURL="${C} -s -4 -A ${UA}"
 API="${DIR}/lib/freeboxos-bash-api/freeboxos_bash_api.sh"
 
+[ ! -x ${C} ] && { echo "Curl is not installed."; exit 1; }
+[ -e ${API} ] && source ${API} || { echo "API is not present."; exit 2; }
+
 case $(uname) in
   Darwin)
     OS="Mac OSX";;
@@ -19,9 +22,6 @@ case $(uname) in
   *)
     OS="Unknown";;
 esac
-
-[ ! -x ${C} ] && { echo "Curl is not installed."; exit 1; }
-[ -e ${API} ] && source ${API} || { echo "API is not present."; exit 2; }
 
 
 __END__
