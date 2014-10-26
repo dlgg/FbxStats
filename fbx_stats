@@ -7,10 +7,7 @@ UA="Fbx SNMP Stats v${VERSION}"
 C=$(which curl)
 CURL="${C} -s -4 -A ${UA}"
 
-if [ ! -x ${C} ]; then
-  echo "Curl is not installed."
-  exit 1
-fi
+[ ! -x ${C} ] && { echo "Curl is not installed."; exit 1; }
 
 fbx_version() {
   ${CURL} http://${HOST}/api_version
