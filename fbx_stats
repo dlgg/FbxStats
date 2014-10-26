@@ -3,9 +3,11 @@
 HOST="mafreebox.freebox.fr"
 VERSION="0.1"
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 UA="Fbx SNMP Stats v${VERSION}"
 C=$(which curl)
 CURL="${C} -s -4 -A ${UA}"
+API="${DIR}/lib/freeboxos-bash-api/freeboxos_bash_api.sh"
 
 case $(uname) in
   Darwin)
