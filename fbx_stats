@@ -76,15 +76,11 @@ case $1 in
     salt=$(get_json_value_for_key "${answer}" "result.password_salt")
     password=$(echo -n "$challenge" | openssl dgst -sha1 -hmac "$APP_TOKEN" | sed  's/^(stdin)= //')
     echo "$challenge / $APP_TOKEN / $password"
-    echo "-----------------------------------"
     DATA="{\"app_id\": \"${APP_ID}\",\"password\": \"${password}\"}"
     answer=$(call_freebox_api /login/session/ "${DATA}")
     _SESSION_TOKEN=$(get_json_value_for_key "${answer}" "result.session_token")
     _save_conf
-    echo "-----------------------------------"
-    dump_json_keys_values "${answer}"
     ;;
-
   chk_login)
     answer=$(call_freebox_api /login/)
     [ $(get_json_value_for_key "${answer}" "result.logged_in") == "true" ] && echo "We are logged in." || echo "We are not logged in.";;
