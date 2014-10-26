@@ -21,6 +21,8 @@ case $(uname) in
 esac
 
 [ ! -x ${C} ] && { echo "Curl is not installed."; exit 1; }
+[ -e ${API} ] && source ${API} || { echo "API is not present."; exit 1; }
+
 
 __END__
 }
