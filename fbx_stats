@@ -24,8 +24,16 @@ _reset_conf() {
 APP_FULL_NAME=\"Freebox OS SNMP Bash interface\"
 APP_VERSION="${VERSION}"
 APP_OS=$(HOSTNAME)
-APP_ID=
+APP_ID=\"fr.freebox.hebeo.snmp\"
 APP_TOKEN=" >${CONF}
+}
+_save_conf() {
+  echo "APP_NAME=\"fr.freebox.hebeo.snmp\"
+APP_FULL_NAME=\"Freebox OS SNMP Bash interface\"
+APP_VERSION=\"${VERSION}\"
+APP_OS=\"$(HOSTNAME)\"
+APP_ID=\"fr.freebox.hebeo.snmp\"
+APP_TOKEN=\"${APP_TOKEN}\"" >${CONF}
 }
 
 [ ! -e ${CONF} ] && { touch ${CONF}; _reset_conf; }
@@ -56,7 +64,11 @@ case $1 in
     ;;
   auth)
     authorize_application ${APP_NAME} "${APP_FULL_NAME}" ${APP_VERSION} ${APP_OS}
-    echo "Call \"$0 login MY_APP_ID MY_APP_TOKEN\" to first log application in the FreeBOX.";;
+    echo "Call \"$0 login MY_APP_TOKEN\" to first log application in the FreeBOX.";;
+  login)
+    login_freebox $2
+    APP_TOKEN=$2
+    save_conf;;
   *)
     echo "Not implemented."
     ;;
