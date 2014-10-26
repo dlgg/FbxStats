@@ -6,10 +6,8 @@ VERSION="0.1"
 UA="Fbx SNMP Stats v${VERSION}"
 C=$(which curl)
 CURL="${C} -s -4 -A ${UA}"
-JSAWK="${PWD}/lib/jsawk/jsawk"
 
 [ ! -x ${C} ] && { echo "Curl is not installed."; exit 1; }
-[ ! -x ${JSAWK} ] && { echo "JSAWK is not present."; exit 2; }
 
 fbx_version() {
   ${CURL} http://${HOST}/api_version
