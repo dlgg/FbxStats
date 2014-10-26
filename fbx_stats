@@ -1,4 +1,9 @@
 #!/bin/bash
+### TODO
+###
+### check variables for $0 login
+###
+###
 
 HOST="mafreebox.freebox.fr"
 VERSION="0.1"
