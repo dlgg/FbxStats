@@ -68,7 +68,7 @@ case $1 in
   login)
     login_freebox $2
     APP_TOKEN=$2
-    save_conf;;
+    _save_conf
   *)
     echo "Not implemented."
     ;;
