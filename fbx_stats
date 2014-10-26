@@ -9,13 +9,12 @@ CURL="${C} -s -4 -A ${UA}"
 
 [ ! -x ${C} ] && { echo "Curl is not installed."; exit 1; }
 
-fbx_version() {
-  ${CURL} http://${HOST}/api_version
+__END__
 }
 
 case $1 in
   version)
-    fbx_version
+    echo ${_API_VERSION}
     ;;
   *)
     echo "Not implemented."
