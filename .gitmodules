@@ -1,0 +1,3 @@
+[submodule "lib/jsawk"]
+	path = lib/jsawk
+	url = https://github.com/micha/jsawk.git
