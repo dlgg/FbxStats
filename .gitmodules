@@ -1,0 +1,3 @@
+[submodule "lib/freeboxos-bash-api"]
+	path = lib/freeboxos-bash-api
+	url = git@github.com:dlgg/freeboxos-bash-api.git
