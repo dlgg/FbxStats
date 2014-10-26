@@ -5,7 +5,7 @@ VERSION="0.1"
 
 UA="Fbx SNMP Stats v${VERSION}"
 C=$(which curl)
-CURL="${CURL} -s -4 -A ${UA}"
+CURL="${C} -s -4 -A ${UA}"
 
 if [ ! -x ${C} ]; then
   echo "Curl is not installed."
