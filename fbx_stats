@@ -65,15 +65,13 @@ FbxAuth() {
   authorize_application ${APP_NAME} "${APP_FULL_NAME}" ${APP_VERSION} ${APP_OS}
   echo "Call \"$0 login MY_APP_TOKEN\" to first log application in the FreeBOX."
 }
+
 FbxLogin() {
   APP_TOKEN=$1
-  answer=$(call_freebox_api /login/)
-  challenge=$(get_json_value_for_key "${answer}" "result.challenge")
-  salt=$(get_json_value_for_key "${answer}" "result.password_salt")
-  password=$(echo -n "$challenge" | openssl dgst -sha1 -hmac "$APP_TOKEN" | sed  's/^(stdin)= //')
-  DATA="{\"app_id\": \"${APP_ID}\",\"password\": \"${password}\"}"
-  answer=$(call_freebox_api /login/session/ "${DATA}")
-  _SESSION_TOKEN=$(get_json_value_for_key "${answer}" "result.session_token")
+  local answer=$(call_freebox_api /login/)
+  local password=$(echo -n "$(get_json_value_for_key "${answer}" "result.challenge")" | openssl dgst -sha1 -hmac "$APP_TOKEN" | sed  's/^(stdin)= //')
+  local data="{\"app_id\": \"${APP_ID}\",\"password\": \"${password}\"}"
+  _SESSION_TOKEN=$(get_json_value_for_key "$(call_freebox_api /login/session/ "${data}")" "result.session_token")
   _save_conf
   FbxChkLogin
 }
