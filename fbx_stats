@@ -80,6 +80,7 @@ case $1 in
     answer=$(call_freebox_api /login/session/ "${DATA}")
     _SESSION_TOKEN=$(get_json_value_for_key "${answer}" "result.session_token")
     _save_conf
+    $0 chk_login
     ;;
   chk_login)
     answer=$(call_freebox_api /login/)
