@@ -23,7 +23,7 @@ _reset_conf() {
   echo "APP_NAME=\"fr.freebox.hebeo.snmp\"
 APP_FULL_NAME=\"Freebox OS SNMP Bash interface\"
 APP_VERSION=\"${VERSION}\"
-APP_OS=\"$(HOSTNAME)\"
+APP_OS=\"${HOSTNAME}\"
 APP_ID=\"fr.freebox.hebeo.snmp\"
 APP_TOKEN=\"\"
 _SESSION_TOKEN=\"\"
