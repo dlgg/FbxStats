@@ -15,14 +15,12 @@ API="${DIR}/lib/freeboxos-bash-api/freeboxos_bash_api.sh"
 
 # Conf management
 _reset_conf() {
-  echo >${CONF} <<__END__
-APP_NAME="Freebox.SNMP.app"
-APP_FULL_NAME="Freebox OS SNMP Bash interface"
-APP_VERSION=${VERSION}
+  echo "APP_NAME=\"fr.freebox.hebeo.snmp\"
+APP_FULL_NAME=\"Freebox OS SNMP Bash interface\"
+APP_VERSION="${VERSION}"
 APP_OS=$(HOSTNAME)
 APP_ID=
-APP_TOKEN=
-__END__
+APP_TOKEN=" >${CONF}
 }
 
 [ ! -e ${CONF} ] && { touch ${CONF}; _reset_conf; }
