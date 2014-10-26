@@ -89,6 +89,19 @@ case $1 in
     call_freebox_api "/login/logout";;
   reboot)
     call_freebox_api "/system/reboot";;
+  rrd)
+    case $2 in
+      adsl) dn=dsl;;
+      dsl) dn=dsl;;
+      net) dn=net;;
+      switch) dn=switch;;
+      temp) db=temp;;
+      xdsl) dn=dsl;;
+      *) echo "Choice for rrd is : dsl, net, switch, temp"; exit 16;;
+    esac
+    answer=$(call_freebox_api "/rrd/")
+    dump_json_keys_values "${answer}"
+    ;;
   *)
     echo "Not implemented."
     ;;
