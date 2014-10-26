@@ -91,12 +91,12 @@ case $1 in
     call_freebox_api "/system/reboot";;
   rrd)
     case $2 in
-      adsl) dn=dsl;;
-      dsl) dn=dsl;;
-      net) dn=net;;
-      switch) dn=switch;;
+      adsl) db=dsl;;
+      dsl) db=dsl;;
+      net) db=net;;
+      switch) db=switch;;
       temp) db=temp;;
-      xdsl) dn=dsl;;
+      xdsl) db=dsl;;
       *) echo "Choice for rrd is : dsl, net, switch, temp"; exit 16;;
     esac
     answer=$(call_freebox_api "/rrd/")
