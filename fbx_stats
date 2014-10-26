@@ -66,9 +66,15 @@ case $1 in
     authorize_application ${APP_NAME} "${APP_FULL_NAME}" ${APP_VERSION} ${APP_OS}
     echo "Call \"$0 login MY_APP_TOKEN\" to first log application in the FreeBOX.";;
   login)
-    login_freebox $2
     APP_TOKEN=$2
     _save_conf
+    answer=$(call_freebox_api /login/)
+    challenge=$(get_json_value_for_key "${answer}" "result.challenge")
+    salt=$(get_json_value_for_key "${answer}" "result.password_salt")
+    password=$(echo -n "$challenge" | openssl dgst -sha1 -hmac "$APP_TOKEN" | sed  's/^(stdin)= //')
+    echo "$challenge / $APP_TOKEN / $password"
+    ;;
+
   chk_login)
     answer=$(call_freebox_api /login/)
     [ $(get_json_value_for_key "${answer}" "result.logged_in") == "true" ] && echo "We are logged in." || echo "We are not logged in.";;
