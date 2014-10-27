@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FREEBOX_URL="http://mafreebox.freebox.fr"
+FREEBOX_URL="${HOST:-http://mafreebox.freebox.fr}"
 _API_VERSION=
 _API_BASE_URL=
 _SESSION_TOKEN=
@@ -238,7 +238,3 @@ function reboot_freebox {
     call_freebox_api '/system/reboot' '{}' >/dev/null
 }
 
-######## MAIN ########
-
-# fill _API_VERSION and _API_BASE_URL variables
-_check_freebox_api
