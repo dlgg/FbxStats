@@ -224,6 +224,11 @@ FbxLan() {
   fi
 }
 
+FbxLanHosts() {
+  local answer=$(call_freebox_api /lan/browser/interfaces/)
+  dump_json_keys_values "${answer}"
+}
+
 _parse_uptime() {
   [ $# -eq 0 ] && { echo "You need to pass one or more parameters to FbxGetValue."; exit 1024; }
   local raw_uptime=0
@@ -267,6 +272,8 @@ case $1 in
     FbxConn $2;;
   lan)
     FbxLan $2;;
+  lan_hosts)
+    FbxLanHosts;;
   system)
     FbxSystem $2;;
   *)
