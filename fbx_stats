@@ -195,7 +195,7 @@ FbxConn() {
 
 FbxLan() {
   if [ $# -eq 0 ]; then
-    local answer=$(call_freebox_api /lan/config)
+    local answer=$(call_freebox_api /lan/config/)
     dump_json_keys_values "${answer}"
   else
     case $1 in
