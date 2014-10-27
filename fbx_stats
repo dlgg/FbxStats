@@ -88,6 +88,87 @@ FbxChkLogin() {
   [ $(get_json_value_for_key "$(call_freebox_api /login/)" "result.logged_in") == "true" ] && echo "We are logged in." || echo "We are not logged in."
 }
 
+FbxSystem() {
+  if [ $# -eq 0 ]; then
+    local answer=$(call_freebox_api /system/)
+    dump_json_keys_values "${answer}"
+  else
+    case $1 in
+      mac)
+        FbxGetValue system mac
+        ;;
+      fan_rpm)
+        FbxGetValue system fan_rpm
+        ;;
+      temp_sw)
+        FbxGetValue system temp_sw
+        ;;
+      uptime)
+        FbxGetValue system uptime
+        ;;
+      uptime_raw)
+        FbxSystemUptime
+        ;;
+      board_name)
+        FbxGetValue system board_name
+        ;;
+      temp_cpub)
+        FbxGetValue system temp_cpub
+        ;;
+      temp_cpum)
+        FbxGetValue system temp_cpum
+        ;;
+      serial)
+        FbxGetValue system serial
+        ;;
+      firmware_version)
+        FbxGetValue system firmware_version
+        ;;
+      *)
+        echo "This choice is not available for /system/."; exit 2048
+        ;;
+    esac
+  fi
+}
+
+FbxGetValue() {
+  [ $# -eq 0 ] && { echo "You need to pass one or more parameters to FbxGetValue."; exit 1024; }
+  local request="/"
+  while [ $# -ge 2 ]; do
+    request="${request}$1/"
+    shift
+  done
+  local answer=$(call_freebox_api "${request}")
+  get_json_value_for_key "${answer}" "result.$1"
+}
+
+FbxSystemUptime() {
+  local uptime=$(FbxGetValue system uptime)
+  _parse_uptime ${uptime}
+}
+
+_parse_uptime() {
+  [ $# -eq 0 ] && { echo "You need to pass one or more parameters to FbxGetValue."; exit 1024; }
+  local raw_uptime=0
+  local mult=
+  while [ $# -ge 1 ]; do
+    local add=
+    case $2 in
+      jour) mult=86400;;
+      jours) mult=86400;;
+      heure) mult=3600;;
+      heures) mult=3600;;
+      minute) mult=60;;
+      minutes) mult=60;;
+      seconde) mult=1;;
+      secondes) mult=1;;
+    esac
+    raw_uptime=$(( ${raw_uptime} + $(( $1 * ${mult} )) ))
+    shift; shift
+  done
+  echo ${raw_uptime}
+}
+
 ### Main Loop
 case $1 in
   version)
@@ -105,6 +186,8 @@ case $1 in
     call_freebox_api "/login/logout";;
   reboot)
     call_freebox_api "/system/reboot";;
+  system)
+    FbxSystem $2;;
   rrd)
     case $2 in
       adsl) db=dsl;;
