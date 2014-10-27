@@ -80,6 +80,10 @@ FbxLogin() {
   FbxChkLogin
 }
 
+FbxRelog() {
+  FbxLogin ${APP_TOKEN}
+}
+
 FbxChkLogin() {
   [ $(get_json_value_for_key "$(call_freebox_api /login/)" "result.logged_in") == "true" ] && echo "We are logged in." || echo "We are not logged in."
 }
@@ -93,6 +97,8 @@ case $1 in
     FbxAuth;;
   login)
     FbxLogin $2;;
+  relog)
+    FbxRelog;;
   chk_login)
     FbxChkLogin;;
   logout)
