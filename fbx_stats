@@ -232,10 +232,10 @@ case $1 in
     call_freebox_api "/login/logout";;
   reboot)
     call_freebox_api "/system/reboot";;
-  system)
-    FbxSystem $2;;
   connection)
     FbxConn $2;;
+  system)
+    FbxSystem $2;;
   *)
     echo "Not implemented."
     ;;
