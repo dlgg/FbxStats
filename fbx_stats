@@ -242,6 +242,19 @@ FbxLanHostsOn() {
   echo ${count}
 }
 
+FbxManual() {
+  if [ $# -eq 1 ]; then
+    local answer=$(call_freebox_api $1)
+    dump_json_keys_values "${answer}"
+  elif [ $# -eq 0 ]; then
+    echo "You need to pass the URI to query without the HOST/api/ part."
+    exit 8192
+  else
+    # TODO
+    echo "Not implemented yet."
+  fi
+}
+
 _parse_uptime() {
   [ $# -eq 0 ] && { echo "You need to pass one or more parameters to FbxGetValue."; exit 1024; }
   local raw_uptime=0
@@ -291,6 +304,9 @@ case $1 in
     FbxLanHostsOn;;
   system)
     FbxSystem $2;;
+  manual)
+    shift
+    FbxManual "$@";;
   *)
     echo "Not implemented."
     ;;
