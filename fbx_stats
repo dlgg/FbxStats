@@ -39,7 +39,7 @@ APP_VERSION=\"${VERSION}\"
 APP_OS=\"$(HOSTNAME)\"
 APP_ID=\"fr.freebox.hebeo.snmp\"
 APP_TOKEN=\"${APP_TOKEN}\"
-_SESSION_TOKEN=\"${SESSION_TOKEN}\"
+_SESSION_TOKEN=\"${_SESSION_TOKEN}\"
 " >${CONF}
 }
 
