@@ -242,6 +242,17 @@ FbxLanHostsOn() {
   echo ${count}
 }
 
+FbxFreeplug() {
+  local answer=$(call_freebox_api /freeplug/)
+  local inc=0
+  local result="err"
+  while [ z$result != "z" ]; do
+    result=$(get_json_value_for_key "${answer}" result[0].members[${inc}].id)
+    [ z${result} != "z" ] && ((inc++))
+  done
+  echo ${inc}
+}
+
 FbxManual() {
   if [ $# -eq 1 ]; then
     local answer=$(call_freebox_api $1)
@@ -302,6 +313,8 @@ case $1 in
     FbxLanHosts;;
   lan_hosts_online)
     FbxLanHostsOn;;
+  freeplug)
+    FbxFreeplug;;
   system)
     FbxSystem $2;;
   manual)
