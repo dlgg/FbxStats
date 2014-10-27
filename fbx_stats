@@ -253,6 +253,17 @@ FbxFreeplug() {
   echo ${inc}
 }
 
+FbxUpnp() {
+  local answer=$(call_freebox_api /upnpigd/redir/)
+  local inc=0
+  local result="err"
+  while [ z$result != "z" ]; do
+    result=$(get_json_value_for_key "${answer}" result[${inc}].enabled)
+    [ z${result} != "z" ] && ((inc++))
+  done
+  echo ${inc}
+}
+
 FbxManual() {
   if [ $# -eq 1 ]; then
     local answer=$(call_freebox_api $1)
@@ -315,6 +326,8 @@ case $1 in
     FbxLanHostsOn;;
   freeplug)
     FbxFreeplug;;
+  upnp)
+    FbxUpnp;;
   system)
     FbxSystem $2;;
   manual)
