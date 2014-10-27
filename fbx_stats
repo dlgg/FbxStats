@@ -193,6 +193,37 @@ FbxConn() {
   fi
 }
 
+FbxLan() {
+  if [ $# -eq 0 ]; then
+    local answer=$(call_freebox_api /lan/config)
+    dump_json_keys_values "${answer}"
+  else
+    case $1 in
+      name_dns)
+        FbxGetValue lan config name_dns
+        ;;
+      name)
+        FbxGetValue lan config name
+        ;;
+      name_mdns)
+        FbxGetValue lan config name_mdns
+        ;;
+      mode)
+        FbxGetValue lan config mode
+        ;;
+      name_netbios)
+        FbxGetValue lan config name_netbios
+        ;;
+      ip)
+        FbxGetValue lan config ip
+        ;;
+      *)
+        echo "This choice is not available for /lan/config/."; exit 2048
+        ;;
+    esac
+  fi
+}
+
 _parse_uptime() {
   [ $# -eq 0 ] && { echo "You need to pass one or more parameters to FbxGetValue."; exit 1024; }
   local raw_uptime=0
@@ -234,6 +265,8 @@ case $1 in
     call_freebox_api "/system/reboot";;
   connection)
     FbxConn $2;;
+  lan)
+    FbxLan $2;;
   system)
     FbxSystem $2;;
   *)
