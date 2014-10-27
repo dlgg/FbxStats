@@ -231,7 +231,6 @@ FbxLanHosts() {
 
 FbxLanHostsOn() {
   local answer=$(call_freebox_api /lan/browser/pub/)
-  dump_json_keys_values "${answer}"
   local count=0
   local inc=0
   local result="err"
