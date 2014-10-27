@@ -147,6 +147,52 @@ FbxSystemUptime() {
   _parse_uptime ${uptime}
 }
 
+FbxConn() {
+  if [ $# -eq 0 ]; then
+    local answer=$(call_freebox_api /connection/)
+    dump_json_keys_values "${answer}"
+  else
+    case $1 in
+      type)
+        FbxGetValue connection type
+        ;;
+      rate_down)
+        FbxGetValue connection rate_down
+        ;;
+      rate_up)
+        FbxGetValue connection rate_up
+        ;;
+      bytes_down)
+        FbxGetValue connection bytes_down
+        ;;
+      bytes_up)
+        FbxGetValue connection bytes_up
+        ;;
+      bandwidth_down)
+        FbxGetValue connection bandwidth_down
+        ;;
+      bandwidth_up)
+        FbxGetValue connection bandwidth_up
+        ;;
+      ipv4)
+        FbxGetValue connection ipv4
+        ;;
+      ipv6)
+        FbxGetValue connection ipv6
+        ;;
+      media)
+        FbxGetValue connection media
+        ;;
+      state)
+        FbxGetValue connection up
+        ;;
+      *)
+        echo "This choice is not available for /connection/."; exit 2048
+        ;;
+    esac
+  fi
+}
+
 _parse_uptime() {
   [ $# -eq 0 ] && { echo "You need to pass one or more parameters to FbxGetValue."; exit 1024; }
   local raw_uptime=0
@@ -188,6 +234,8 @@ case $1 in
     call_freebox_api "/system/reboot";;
   system)
     FbxSystem $2;;
+  connection)
+    FbxConn $2;;
   *)
     echo "Not implemented."
     ;;
