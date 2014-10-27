@@ -229,6 +229,20 @@ FbxLanHosts() {
   dump_json_keys_values "${answer}"
 }
 
+FbxLanHostsOn() {
+  local answer=$(call_freebox_api /lan/browser/pub/)
+  dump_json_keys_values "${answer}"
+  local count=0
+  local inc=0
+  local result="err"
+  while [ z$result != "z" ]; do
+    result=$(get_json_value_for_key "${answer}" result[${inc}].active)
+    [ z${result} == "ztrue" ] && ((count++))
+    ((inc++))
+  done
+  echo ${count}
+}
+
 _parse_uptime() {
   [ $# -eq 0 ] && { echo "You need to pass one or more parameters to FbxGetValue."; exit 1024; }
   local raw_uptime=0
@@ -274,6 +288,8 @@ case $1 in
     FbxLan $2;;
   lan_hosts)
     FbxLanHosts;;
+  lan_hosts_online)
+    FbxLanHostsOn;;
   system)
     FbxSystem $2;;
   *)
