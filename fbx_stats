@@ -5,10 +5,12 @@
 ###
 ###
 
+# Configuration variables
 HOST="mafreebox.freebox.fr"
 VERSION="0.1"
 CONF="${HOME}/.freeboxsnmp"
 
+# Autopopulate variables
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 UA="Fbx SNMP Stats v${VERSION}"
 C=$(which curl)
@@ -43,6 +45,7 @@ _SESSION_TOKEN=\"${SESSION_TOKEN}\"
 [ ! -e ${CONF} ] && { touch ${CONF}; _reset_conf; }
 source ${CONF}
 
+### We check if we are already authorize.
 if [ "z$APP_ID" == "z" ]; then
   if [ $# -eq 0 ]; then
     echo "You need to call \"$0 auth\"  to initiate App Authorization."
