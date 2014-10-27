@@ -299,6 +299,59 @@ _parse_uptime() {
   echo ${raw_uptime}
 }
 
+FbxHelp() {
+  echo "List of all commands:
+version   : Print API version
+auth      : Authorize application onto the Freebox (To do only the first time)
+login     : Log into the freebox with the API_TOKEN get from auth (To do only the first time)
+relog     : Relog when you already have login
+chk_login : Check if we are logged
+logout    : Logout
+reboot    : Reboot the Freebox Player
+manual    : Make a manual API call
+
+lan_hosts        : Print the number of all online hosts who has been on the lan
+lan_hosts_online : Print the number of online hosts on the lan
+freeplug         : Print the number of freeplugs detected
+upnp             : Print the number of upnp rules
+switch           : WIP
+
+system           : Print the system informations
+  board_name       : Print the main board model
+  serial           : Print the serial of the Freebox
+  firmware_version : Print the firmware version of the Freebox
+  mac              : Print the MAC address of the Freebo
+  fan_rpm          : Print the rotation speed of the fan
+  temp_cpub        : Print the temperature in °C of CPUB
+  temp_cpum        : Print the temperature in °C of CPUM
+  temp_sw          : Print the temperature in °C near the switch
+  uptime           : Print the Freebox uptime in user friendly format
+  uptime_raw       : Print the Freebox uptime in seconds
+
+connection     : Print the connection informations
+  type           :
+  media          :
+  state          :
+  ipv4           : Print the Freebox IPv4
+  ipv6           : Print the Freebox IPv6
+  rate_down      :
+  rate_up        :
+  bytes_down     :
+  bytes_up       :
+  bandwidth_down :
+  bandwidth_up   :
+
+lan          : Print the lan informations
+  name         :
+  name_dns     :
+  name_mdns    :
+  name_netbios :
+  mode         : Show if the Freebos is in bridge or router mode
+  ip           : Print the LAN IP of the Freebox
+"
+  exit 0
+}
+
 ### Main Loop
 case $1 in
   version)
@@ -333,6 +386,8 @@ case $1 in
   manual)
     shift
     FbxManual "$@";;
+  help)
+    FbxHelp;;
   *)
     echo "Not implemented."
     ;;
