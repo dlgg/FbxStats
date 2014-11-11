@@ -329,23 +329,23 @@ system           : Print the system informations
   uptime_raw       : Print the Freebox uptime in seconds
 
 connection     : Print the connection informations
-  type           :
-  media          :
-  state          :
+  type           : Print the type of connection
+  media          : Print the media type (*dsl or fiber)
+  state          : Print if connection is up or down
   ipv4           : Print the Freebox IPv4
   ipv6           : Print the Freebox IPv6
-  rate_down      :
-  rate_up        :
-  bytes_down     :
-  bytes_up       :
-  bandwidth_down :
-  bandwidth_up   :
+  rate_down      : Print the actual download rate
+  rate_up        : Print the actual upload rate
+  bytes_down     : Print the total number of bytes downloaded
+  bytes_up       : Print the total number of bytes uploaded
+  bandwidth_down : Print the maximum bandwith for download
+  bandwidth_up   : Print the maximum bandwith for upload
 
 lan          : Print the lan informations
-  name         :
-  name_dns     :
-  name_mdns    :
-  name_netbios :
+  name         : Print the FreeBox Player name
+  name_dns     : Print the FreeBox Player dns name
+  name_mdns    : Print the FreeBox Player mdns name
+  name_netbios : Print the FreeBox Player netbios name
   mode         : Show if the Freebos is in bridge or router mode
   ip           : Print the LAN IP of the Freebox
 "
