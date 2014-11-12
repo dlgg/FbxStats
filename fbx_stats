@@ -85,7 +85,7 @@ FbxRelog() {
 }
 
 FbxChkLogin() {
-  [ $(get_json_value_for_key "$(call_freebox_api /login/)" "result.logged_in") == "true" ] && echo "We are logged in." || echo "We are not logged in."
+  [ $(get_json_value_for_key "$(call_freebox_api /login/)" "result.logged_in") == "true" ] && echo "We are logged in." || { echo "We are not logged in."; exit 1; }
 }
 
 FbxSystem() {
